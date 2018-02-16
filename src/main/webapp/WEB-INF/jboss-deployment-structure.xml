@@ -1,0 +1,55 @@
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <!-- exclude-subsystem prevents a subsystems deployment unit processors running on a deployment -->
+    <!-- which gives basically the same effect as removing the subsystem, but it only affects single deployment -->
+    <exclude-subsystems>
+      <subsystem name="resteasy"/>
+      <subsystem name="jsf" />
+      <subsystem name="batch" />
+      <subsystem name="jaxrs" />
+    </exclude-subsystems>
+    <!-- Exclusions allow you to prevent the server from automatically adding some dependencies     -->
+    <exclusions>
+      <module name="org.hibernate" /> <!-- Escludo l'Hibernate integrato in jboss e uso quello interno -->
+      <module name="org.jboss.logging" /> <!-- Escludo li logger integrato in jboss -->
+    </exclusions>
+    <!-- This allows you to define additional dependencies, it is the same as using the Dependencies: manifest attribute -->
+    <dependencies>
+      <!-- Import META-INF/services for ServiceLoader impls as well -->
+      <!--<module name="myservicemodule" services="import"/>-->
+      <module name="org.postgres"/>
+      <module name="org.hibernate"/>
+
+      <!-- Add Hibernate dependencies explicitly -->
+      <module name="asm.asm"/>
+      <module name="com.fasterxml.classmate"/>
+      <module name="javax.api"/>
+      <module name="javax.annotation.api"/>
+      <module name="javax.enterprise.api"/>
+      <module name="javax.persistence.api"/>
+      <module name="javax.transaction.api"/>
+      <module name="javax.validation.api"/>
+      <module name="javax.xml.bind.api"/>
+      <module name="org.antlr"/>
+      <module name="org.apache.commons.collections"/>
+      <module name="org.dom4j"/>
+      <module name="org.infinispan" services="import"/>
+      <module name="org.javassist"/>
+      <module name="org.jboss.as.clustering.common"/>
+      <module name="org.jboss.as.clustering.jgroups"/>
+      <module name="org.jboss.as.clustering.infinispan"/>
+      <module name="org.jboss.as.jpa.spi"/>
+      <module name="org.jboss.jandex"/>
+      <module name="org.jboss.logging"/>
+      <module name="org.jboss.vfs"/>
+      <module name="org.hibernate.commons-annotations"/>
+
+      <!-- Missed JCA module -->
+      <module name="javax.resource.api"/>
+    </dependencies>
+    <!-- These add additional classes to the module. In this case it is the same as including the jar in the EAR's lib directory -->
+    <resources>
+      <resource-root path="mvcdemo.war"/>
+    </resources>
+  </deployment>
+</jboss-deployment-structure>
